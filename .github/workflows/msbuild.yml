@@ -46,6 +46,6 @@ jobs:
     - name: Run tests
       uses: microsoft/vstest-action@v1.0.0
       with:
-          testAssembly: x64/Release/advent2023.dll
-          searchFolder: .
+          testAssembly: advent2023.dll
+          searchFolder: ./x64/Release
           runInParallel: true
