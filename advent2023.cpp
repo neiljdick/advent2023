@@ -9,7 +9,7 @@ namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
 		{
-			template<> static std::wstring ToString<pair<int, int>>(const pair<int,int>& p)
+			template<> std::wstring ToString<pair<int, int>>(const pair<int,int>& p)
 			{
 				ostringstream ss;
 				ss << "<" << p.first << ", " << p.second << ">" << endl;
@@ -19,7 +19,7 @@ namespace Microsoft {
 		}
 	}
 }
-
+	
 namespace advent2023
 {
 	TEST_CLASS(advent2023)
