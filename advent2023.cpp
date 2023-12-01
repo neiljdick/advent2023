@@ -37,18 +37,105 @@ namespace advent2023
 			vector<int> res = fmap(v1, [](int i) {return i * i; });
 			Assert::IsTrue(res == expected);
 		}
-		TEST_METHOD(day1_t)
-		{
-			auto d = Day1();
-			
-			Assert::AreEqual(d.mass(12), 2);
-			Assert::AreEqual(d.mass(100756), 33583);
-		}
 		TEST_METHOD(day1)
 		{
-			auto d = Day1();
-			auto p = d.day1("C:/users/neildick/source/repos/day1/1.txt");
-			Assert::AreEqual(p, make_pair(3305115, 4954799));
+			Assert::Fail();
+		}
+		TEST_METHOD(day2)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day3)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day4)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day5)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day6)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day7)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day8)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day9)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day10)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day11)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day12)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day13)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day14)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day15)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day16)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day17)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day18)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day19)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day20)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day21)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day22)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day23)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day24)
+		{
+			Assert::Fail();
+		}
+		TEST_METHOD(day25)
+		{
+			Assert::Fail();
 		}
 	};
 }
