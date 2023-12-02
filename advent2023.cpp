@@ -1,7 +1,8 @@
 
-#include "pch.h"
+//#include "pch.h"
 #include "CppUnitTest.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+#include "advent.hpp"
 
 #include "day1.hpp"
 
@@ -30,6 +31,17 @@ namespace advent2023
 			vector<int> v1 = { 0, 1, 2, 3, 4, 5 };
 			Assert::AreEqual(sum(v1), 15l);
 		}
+		TEST_METHOD(uf_t)
+		{
+			auto uf = UF(16);
+			Assert::AreEqual(uf.count(), 16);
+			uf.merge(5, 11);
+			Assert::AreEqual(uf.count(), 15);
+			uf.find(5);
+			Assert::IsTrue(uf.connected(5, 11));
+			
+		}
+
 		TEST_METHOD(fmap_t)
 		{
 			vector<int> v1 = { 0, 1, 2, 3, 4, 5 };
@@ -37,9 +49,27 @@ namespace advent2023
 			vector<int> res = fmap(v1, [](int i) {return i * i; });
 			Assert::IsTrue(res == expected);
 		}
+		TEST_METHOD(day1t)
+		{
+			auto d = Day1();
+			auto p = d.do_p1("../../1t.txt");
+			Assert::AreEqual(142, p);
+		}
+		TEST_METHOD(day1t2)
+		{
+			auto d = Day1();
+			auto p = d.p2("../../1t2.txt");
+			Assert::AreEqual(281, p);
+		}
 		TEST_METHOD(day1)
 		{
-			Assert::Fail();
+			auto d = Day1();
+			//int p = d.do_p1("../../1.txt");
+			//Assert::AreEqual(54388, p);
+
+			auto p = d.p2("../../1.txt");
+			Assert::AreEqual(53515, p);
+
 		}
 		TEST_METHOD(day2)
 		{
