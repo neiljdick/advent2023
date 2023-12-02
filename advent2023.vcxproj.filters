@@ -32,5 +32,8 @@
     <ClInclude Include="advent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Day2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

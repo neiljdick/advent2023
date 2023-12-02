@@ -5,7 +5,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "advent.hpp"
 
 #include "day1.hpp"
-
+#include "Day2.h"
 namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
@@ -72,6 +72,11 @@ namespace advent2023
 
 		}
 		TEST_METHOD(day2)
+		{
+			auto d2 = Day2();
+			d2.p1("../../2t.txt");
+		}
+		TEST_METHOD(day2t)
 		{
 			Assert::Fail();
 		}

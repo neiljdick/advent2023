@@ -9,6 +9,8 @@
 #include <set>
 #include <numeric>
 #include <sstream>
+#include <cassert>
+#include <regex>
 using namespace std;
 
 template <typename T>
