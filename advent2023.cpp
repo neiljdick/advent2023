@@ -6,6 +6,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 #include "day1.hpp"
 #include "Day2.h"
+#include "Day3.h"
 namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
@@ -74,15 +75,39 @@ namespace advent2023
 		TEST_METHOD(day2)
 		{
 			auto d2 = Day2();
-			d2.p1("../../2t.txt");
+			auto res = d2.p1("../../2.txt");
+			Assert::AreEqual(3059, res.first);
+			Assert::AreEqual(65371, res.second);
+		}
+		TEST_METHOD(string_split) {
+			string s("This is a string");
+			auto res = split(s, " ");
+			Assert::AreEqual(res[0], string("This"));
+			Assert::AreEqual(res[1], string("is"));
+			Assert::AreEqual(res[2], string("a"));
+			Assert::AreEqual(res[3], string("string"));
 		}
 		TEST_METHOD(day2t)
 		{
-			Assert::Fail();
+			auto d2 = Day2();
+			auto res = d2.p1("../../2t.txt");
+			Assert::AreEqual(8, res.first);
+			Assert::AreEqual(2286, res.second);
 		}
+		TEST_METHOD(day3t) {
+			auto d3 = Day3();
+			auto r = d3.p1("../../3t.txt");
+			Assert::AreEqual(4361, r.first);
+			Assert::AreEqual(467835, r.second);
+
+		}
+		
 		TEST_METHOD(day3)
 		{
-			Assert::Fail();
+			auto d3 = Day3();
+			auto r = d3.p1("../../3.txt");
+			Assert::AreEqual(525119, r.first);
+			Assert::AreEqual(76504829, r.second);
 		}
 		TEST_METHOD(day4)
 		{

@@ -32,6 +32,20 @@ Container fmap(const Container& c, Function f) {
     return result;
 }
 
+static vector<string> split(string s, string tok) {
+    // splits a string on a sub string and returns a vector of substrings
+    vector<string> results;
+    auto next = s.find(tok);
+    while (next != string::npos) {
+        auto ss = s.substr(0, next);
+        results.push_back(ss);
+        s = s.substr(next+1);
+        next = s.find(tok);
+    }
+    results.push_back(s);
+    return results;
+}
+
 class char_map
 {
 public:
@@ -49,6 +63,7 @@ public:
       for (auto x_it = (*y_it).begin(); x_it != (*y_it).end(); ++x_it)
       {
         size_t x = distance((*y_it).begin(), x_it);
+
         cmap[make_pair(x, y)] = *x_it;
       }
     }
@@ -60,16 +75,24 @@ public:
     vector<pair<int, int>> n;
     if (x > 0)
       n.push_back(make_pair(x-1, y));
-    if (x < width)
+    if (x + 1 < width)
       n.push_back(make_pair(x+1, y));
     if (y > 0)
       n.push_back(make_pair(x, y-1));
-    if (y < height)
+    if (y + 1 < height)
       n.push_back(make_pair(x,y+1));
+    if (y > 0 && x > 0)
+        n.push_back(make_pair(x-1, y - 1));
+    if (y + 1 < height && x + 1 < width)
+        n.push_back(make_pair(x + 1, y + 1));
+    if (y + 1 < height && x > 0)
+        n.push_back(make_pair(x - 1, y + 1));
+    if (y > 0  && x + 1< width)
+        n.push_back(make_pair(x + 1, y - 1));
     return n;
   }
-  char get(int x, int y) {return cmap[make_pair(x,y)];}
-  char get(pair<int,int> coord) {return cmap[coord];}
+  char get(int x, int y) {return cmap.at(make_pair(x,y));}
+  char get(pair<int,int> coord) {return cmap.at(coord);}
   void pretty_print(void)
   {
     for (int y = 0; y < height; y++)
@@ -102,6 +125,7 @@ public:
     string s;
     while (getline(f, s, delim))
     {
+        s.erase(std::remove(s.begin(), s.end(), '\n'), s.end());
       raw_vec.push_back(s);
       try
       {
