@@ -38,11 +38,13 @@ static vector<string> split(string s, string tok) {
     auto next = s.find(tok);
     while (next != string::npos) {
         auto ss = s.substr(0, next);
-        results.push_back(ss);
-        s = s.substr(next+1);
+        if (!ss.empty())
+            results.push_back(ss);
+        s = s.substr(next+tok.size());
         next = s.find(tok);
     }
-    results.push_back(s);
+    if (!s.empty())
+        results.push_back(s);
     return results;
 }
 
@@ -68,7 +70,7 @@ public:
       }
     }
   }
-  vector<pair<int,int>> neighbours(pair<int, int> coord) {
+  vector<pair<int,int>> neighbours(pair<int, int> coord) const {
     // given a coord, return the neighbours
     int x = coord.first;
     int y = coord.second;
@@ -201,5 +203,5 @@ public:
 	// Are objects x and y in the same set?
 	bool connected(int x, int y) { return find(x) == find(y); }
 	// Return the number of disjoint sets.
-	int count() { return cnt; }
+	int const count() const { return cnt; }
 };

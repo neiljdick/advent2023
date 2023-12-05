@@ -7,6 +7,8 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "day1.hpp"
 #include "Day2.h"
 #include "Day3.h"
+#include "Day4.h"
+#include "Day5.h"
 namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
@@ -111,11 +113,37 @@ namespace advent2023
 		}
 		TEST_METHOD(day4)
 		{
-			Assert::Fail();
+			Day4 d = Day4();
+			int r = d.p1("../../4.txt");
+			Assert::AreEqual(25010, r);
+			r = d.p2("../../4.txt");
+			Assert::AreEqual(9924412, r);
+
+		}
+		TEST_METHOD(day4t)
+		{
+			Day4 d = Day4();
+			int r = d.p1("../../4t.txt");
+			Assert::AreEqual(13, r);
+			r = d.p2("../../4t.txt");
+			Assert::AreEqual(30, r);
+
+		}
+		TEST_METHOD(day5t)
+		{
+			Day5 d = Day5();
+			unsigned int p = d.p1("../../5t.txt");
+			Assert::AreEqual(35u, p);
+			p = d.p2("../../5t.txt");
+			Assert::AreEqual(46u, p);
 		}
 		TEST_METHOD(day5)
 		{
-			Assert::Fail();
+			Day5 d = Day5();
+			unsigned int p = d.p1("../../5.txt");
+			Assert::AreEqual(486613012u, p);
+			p = d.p2("../../5.txt");
+			Assert::AreEqual(0u, p);
 		}
 		TEST_METHOD(day6)
 		{
