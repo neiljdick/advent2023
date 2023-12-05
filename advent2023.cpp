@@ -5,7 +5,10 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "advent.hpp"
 
 #include "day1.hpp"
-
+#include "Day2.h"
+#include "Day3.h"
+#include "Day4.h"
+#include "Day5.h"
 namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
@@ -73,19 +76,74 @@ namespace advent2023
 		}
 		TEST_METHOD(day2)
 		{
-			Assert::Fail();
+			auto d2 = Day2();
+			auto res = d2.p1("../../2.txt");
+			Assert::AreEqual(3059, res.first);
+			Assert::AreEqual(65371, res.second);
 		}
+		TEST_METHOD(string_split) {
+			string s("This is a string");
+			auto res = split(s, " ");
+			Assert::AreEqual(res[0], string("This"));
+			Assert::AreEqual(res[1], string("is"));
+			Assert::AreEqual(res[2], string("a"));
+			Assert::AreEqual(res[3], string("string"));
+		}
+		TEST_METHOD(day2t)
+		{
+			auto d2 = Day2();
+			auto res = d2.p1("../../2t.txt");
+			Assert::AreEqual(8, res.first);
+			Assert::AreEqual(2286, res.second);
+		}
+		TEST_METHOD(day3t) {
+			auto d3 = Day3();
+			auto r = d3.p1("../../3t.txt");
+			Assert::AreEqual(4361, r.first);
+			Assert::AreEqual(467835, r.second);
+
+		}
+		
 		TEST_METHOD(day3)
 		{
-			Assert::Fail();
+			auto d3 = Day3();
+			auto r = d3.p1("../../3.txt");
+			Assert::AreEqual(525119, r.first);
+			Assert::AreEqual(76504829, r.second);
 		}
 		TEST_METHOD(day4)
 		{
-			Assert::Fail();
+			Day4 d = Day4();
+			int r = d.p1("../../4.txt");
+			Assert::AreEqual(25010, r);
+			r = d.p2("../../4.txt");
+			Assert::AreEqual(9924412, r);
+
+		}
+		TEST_METHOD(day4t)
+		{
+			Day4 d = Day4();
+			int r = d.p1("../../4t.txt");
+			Assert::AreEqual(13, r);
+			r = d.p2("../../4t.txt");
+			Assert::AreEqual(30, r);
+
+		}
+		TEST_METHOD(day5t)
+		{
+			Day5 d = Day5();
+			unsigned int p = d.p1("../../5t.txt");
+			Assert::AreEqual(35u, p);
+			p = d.p2("../../5t.txt");
+			Assert::AreEqual(46u, p);
 		}
 		TEST_METHOD(day5)
 		{
-			Assert::Fail();
+			Day5 d = Day5();
+			unsigned int p = d.p1("../../5.txt");
+			Assert::AreEqual(486613012u, p);
+			p = d.p2("../../5.txt");
+			Assert::AreEqual(0u, p);
 		}
 		TEST_METHOD(day6)
 		{
