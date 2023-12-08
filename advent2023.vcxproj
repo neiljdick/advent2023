@@ -183,6 +183,8 @@
     <ClInclude Include="Day3.h" />
     <ClInclude Include="Day4.h" />
     <ClInclude Include="Day5.h" />
+    <ClInclude Include="Day7.h" />
+    <ClInclude Include="Day8.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

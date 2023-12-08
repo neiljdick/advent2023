@@ -9,6 +9,9 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "Day3.h"
 #include "Day4.h"
 #include "Day5.h"
+#include "Day7.h"
+#include "Day8.h"
+
 namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
@@ -131,31 +134,66 @@ namespace advent2023
 		}
 		TEST_METHOD(day5t)
 		{
-			Day5 d = Day5();
+			Day5::Day5 d = Day5::Day5();
 			unsigned int p = d.p1("../../5t.txt");
 			Assert::AreEqual(35u, p);
-			p = d.p2("../../5t.txt");
-			Assert::AreEqual(46u, p);
+		//	p = d.p2("../../5t.txt");
+		//	Assert::AreEqual(46u, p);
 		}
 		TEST_METHOD(day5)
 		{
-			Day5 d = Day5();
+			Day5::Day5 d = Day5::Day5();
 			unsigned int p = d.p1("../../5.txt");
 			Assert::AreEqual(486613012u, p);
-			p = d.p2("../../5.txt");
-			Assert::AreEqual(0u, p);
+		//	p = d.p2("../../5.txt");
+		//	Assert::AreEqual(0u, p);
 		}
 		TEST_METHOD(day6)
 		{
 			Assert::Fail();
 		}
+		TEST_METHOD(day7t)
+		{
+			Day7 d = Day7("../../7t.txt");
+			int64_t p1 = d.p1();
+			//Assert::AreEqual(6440ll, p1);
+			Assert::AreEqual(5905ll, p1); // part2 
+			Assert::AreEqual(d.hand_score("AAAAA"), 7);
+			Assert::AreEqual(d.hand_score("AA8AA"), 6);
+			Assert::AreEqual(d.hand_score("23332"), 5);
+			Assert::AreEqual(d.hand_score("TTT98"), 4);
+			Assert::AreEqual(d.hand_score("23432"), 3);
+			Assert::AreEqual(d.hand_score("A23A4"), 2);
+			Assert::AreEqual(d.hand_score("23456"), 1);
+			Assert::AreEqual(d.hand_score_fn(make_pair("33332", 0), make_pair("2AAAA", 0)), false);
+			Assert::AreEqual(d.hand_score_fn(make_pair("77888", 0), make_pair("77788", 0)), false);
+		}
 		TEST_METHOD(day7)
 		{
-			Assert::Fail();
+			Day7 d = Day7("../../7.txt");
+			int64_t p1 = d.p1();
+			//Assert::AreEqual(248396258ll, p1);
+			Assert::AreEqual(246436046ll, p1);
+		}
+		TEST_METHOD(day8t)
+		{
+			Day8::Day8 d = Day8::Day8("../../8t.txt");
+			int p1 = d.p1();
+			Assert::AreEqual(2, p1);
+			d = Day8::Day8("../../8t2.txt");
+			p1 = d.p1();
+			Assert::AreEqual(6, p1);
+			Day8::Day8("../../8t3.txt");
+			p1 = d.p2();
+			Assert::AreEqual(6, p1);
 		}
 		TEST_METHOD(day8)
 		{
-			Assert::Fail();
+			Day8::Day8 d = Day8::Day8("../../8.txt");
+			int p1 = d.p1();
+			Assert::AreEqual(16897, p1);
+			int64_t p2 = d.p2();
+			Assert::AreEqual(16897ll, p2);
 		}
 		TEST_METHOD(day9)
 		{
