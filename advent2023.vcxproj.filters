@@ -45,6 +45,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Day6.h">
+    <ClInclude Include="Day7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Day8.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
