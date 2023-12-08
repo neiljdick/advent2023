@@ -9,6 +9,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "Day3.h"
 #include "Day4.h"
 #include "Day5.h"
+#include "Day6.h"
 namespace Microsoft {
 	namespace VisualStudio {
 		namespace CppUnitTestFramework
@@ -132,22 +133,38 @@ namespace advent2023
 		TEST_METHOD(day5t)
 		{
 			Day5 d = Day5();
-			unsigned int p = d.p1("../../5t.txt");
-			Assert::AreEqual(35u, p);
+			int64_t p = d.p1("../../5t.txt");
+			Assert::AreEqual(35ll, p);
 			p = d.p2("../../5t.txt");
-			Assert::AreEqual(46u, p);
+			Assert::AreEqual(46ll, p);
 		}
 		TEST_METHOD(day5)
 		{
 			Day5 d = Day5();
-			unsigned int p = d.p1("../../5.txt");
-			Assert::AreEqual(486613012u, p);
-			p = d.p2("../../5.txt");
-			Assert::AreEqual(0u, p);
+			int64_t p = d.p1("../../5.txt");
+			Assert::AreEqual(486613012ll, p);
+			Day5 d2 = Day5();
+			p = d2.p2("../../5.txt");
+			Assert::AreEqual(56931769ll, p);
+		}
+		TEST_METHOD(day6t)
+		{
+			Day6 d = Day6("../../6t.txt");
+			int64_t p = d.p1();
+			Assert::AreEqual(288ll, p);
+			d = Day6("../../6t-2.txt");
+			p = d.p1();
+			Assert::AreEqual(71503ll, p);
+
 		}
 		TEST_METHOD(day6)
 		{
-			Assert::Fail();
+			Day6 d = Day6("../../6.txt");
+			int64_t p = d.p1();
+			Assert::AreEqual(5133600ll, p);
+			d = Day6("../../6.2.txt");
+			p = d.p1();
+			Assert::AreEqual(40651271ll, p);
 		}
 		TEST_METHOD(day7)
 		{

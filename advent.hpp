@@ -11,6 +11,7 @@
 #include <sstream>
 #include <cassert>
 #include <regex>
+#include <ctype.h>
 using namespace std;
 
 template <typename T>
