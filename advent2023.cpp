@@ -221,18 +221,17 @@ namespace advent2023
 		{
 			Day10::Day10 d = Day10::Day10("../../10t.txt");
 			int p1 = d.p1();
-			Assert::AreEqual(8, p1);
+			Assert::AreEqual(70, p1);
 			int64_t p2 = d.p2();
-			// Assert::AreEqual(expected_value, p2);
+			Assert::AreEqual(8ll, p2);
 		}
 		TEST_METHOD(day10)
 		{
 			Day10::Day10 d = Day10::Day10("../../10.txt");
 			int p1 = d.p1();
-			// TODO: Update expected values when implementing solution
 			Assert::AreEqual(6956, p1);
 			int64_t p2 = d.p2();
-			// Assert::AreEqual(expected_value, p2);
+			Assert::AreEqual(455ll, p2);
 		}
 		TEST_METHOD(day11)
 		{

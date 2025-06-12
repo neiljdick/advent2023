@@ -28,8 +28,7 @@ namespace Day10 {
 		}
 
 		int64_t p2() {
-			// TODO: Implement part 2 solution
-			return 0;
+			return findEnclosedTiles();
 		}
 
 		// Helper method to print the grid for debugging
@@ -201,6 +200,132 @@ namespace Day10 {
 
 			// The farthest point is half the loop length
 			return steps / 2;
+		}
+
+		// Get all tiles that are part of the main loop
+		set<pair<int, int>> getLoopTiles() const {
+			set<pair<int, int>> loopTiles;
+			vector<int> startDirs = getValidStartDirections();
+			if (startDirs.size() != 2) {
+				return loopTiles; // Invalid loop
+			}
+
+			// Add start position
+			loopTiles.insert(startPos);
+
+			// Follow the loop and mark all tiles
+			int currentRow = startPos.first;
+			int currentCol = startPos.second;
+			int currentDir = startDirs[0];
+			int steps = 0;
+
+			do {
+				// Move to next position
+				auto nextPos = getNextPosition(currentRow, currentCol, currentDir);
+				currentRow = nextPos.first;
+				currentCol = nextPos.second;
+				steps++;
+
+				// Add to loop tiles
+				loopTiles.insert(make_pair(currentRow, currentCol));
+
+				// If we're back at start, we've completed the loop
+				if (currentRow == startPos.first && currentCol == startPos.second) {
+					break;
+				}
+
+				// Find the next direction
+				PipeType currentPipe = getPipeAt(currentRow, currentCol);
+				int oppositeOfCurrent = getOppositeDirection(currentDir);
+				
+				for (int newDir = 0; newDir < 4; ++newDir) {
+					if (newDir != oppositeOfCurrent && connectsInDirection(currentPipe, newDir)) {
+						currentDir = newDir;
+						break;
+					}
+				}
+
+			} while (steps < 1000000);
+
+			return loopTiles;
+		}
+
+		// Determine what type of pipe S actually represents
+		PipeType determineStartPipeType() const {
+			vector<int> startDirs = getValidStartDirections();
+			if (startDirs.size() != 2) return PipeType::GROUND;
+
+			// Sort directions to make comparison easier
+			sort(startDirs.begin(), startDirs.end());
+
+			// Check all combinations
+			if (startDirs[0] == 0 && startDirs[1] == 1) return PipeType::NORTH_EAST; // North + East = L
+			if (startDirs[0] == 0 && startDirs[1] == 2) return PipeType::VERTICAL;   // North + South = |
+			if (startDirs[0] == 0 && startDirs[1] == 3) return PipeType::NORTH_WEST; // North + West = J
+			if (startDirs[0] == 1 && startDirs[1] == 2) return PipeType::SOUTH_EAST; // East + South = F
+			if (startDirs[0] == 1 && startDirs[1] == 3) return PipeType::HORIZONTAL; // East + West = -
+			if (startDirs[0] == 2 && startDirs[1] == 3) return PipeType::SOUTH_WEST; // South + West = 7
+
+			return PipeType::GROUND;
+		}
+
+		// Count enclosed tiles using ray casting
+		int64_t findEnclosedTiles() const {
+			set<pair<int, int>> loopTiles = getLoopTiles();
+			PipeType startPipeType = determineStartPipeType();
+			int64_t enclosedCount = 0;
+
+			// For each tile in the grid
+			for (int row = 0; row < height; ++row) {
+				for (int col = 0; col < width; ++col) {
+					pair<int, int> pos = make_pair(row, col);
+					
+					// Skip if this tile is part of the loop
+					if (loopTiles.count(pos)) continue;
+
+					// Cast ray to the right and count crossings
+					int crossings = 0;
+					bool onBoundary = false;
+					char lastCorner = '\0';
+
+					for (int checkCol = col + 1; checkCol < width; ++checkCol) {
+						pair<int, int> checkPos = make_pair(row, checkCol);
+						
+						// Only count if it's part of the loop
+						if (!loopTiles.count(checkPos)) continue;
+
+						PipeType pipe = getPipeAt(row, checkCol);
+						
+						// Handle start position
+						if (pipe == PipeType::START) {
+							pipe = startPipeType;
+						}
+
+						char pipeChar = pipeToChar(pipe);
+
+						// Count crossings based on pipe type
+						if (pipeChar == '|') {
+							crossings++;
+						} else if (pipeChar == 'F' || pipeChar == 'L') {
+							lastCorner = pipeChar;
+						} else if (pipeChar == '7') {
+							if (lastCorner == 'L') crossings++;
+							lastCorner = '\0';
+						} else if (pipeChar == 'J') {
+							if (lastCorner == 'F') crossings++;
+							lastCorner = '\0';
+						}
+						// '-' doesn't affect crossings in horizontal ray
+					}
+
+					// If odd number of crossings, point is inside
+					if (crossings % 2 == 1) {
+						enclosedCount++;
+					}
+				}
+			}
+
+			return enclosedCount;
 		}
 
 	private:
