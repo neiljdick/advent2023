@@ -12,6 +12,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 #include "Day6.h"
 #include "Day7.h"
 #include "Day8.h"
+#include "Day10.h"
 
 namespace Microsoft {
 	namespace VisualStudio {
@@ -216,9 +217,23 @@ namespace advent2023
 		{
 			Assert::Fail();
 		}
+		TEST_METHOD(day10t)
+		{
+			Day10::Day10 d = Day10::Day10("../../10t.txt");
+			int p1 = d.p1();
+			// TODO: Update expected values when implementing solution
+			// Assert::AreEqual(expected_value, p1);
+			int64_t p2 = d.p2();
+			// Assert::AreEqual(expected_value, p2);
+		}
 		TEST_METHOD(day10)
 		{
-			Assert::Fail();
+			Day10::Day10 d = Day10::Day10("../../10.txt");
+			int p1 = d.p1();
+			// TODO: Update expected values when implementing solution
+			// Assert::AreEqual(expected_value, p1);
+			int64_t p2 = d.p2();
+			// Assert::AreEqual(expected_value, p2);
 		}
 		TEST_METHOD(day11)
 		{
