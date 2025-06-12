@@ -221,8 +221,7 @@ namespace advent2023
 		{
 			Day10::Day10 d = Day10::Day10("../../10t.txt");
 			int p1 = d.p1();
-			// TODO: Update expected values when implementing solution
-			// Assert::AreEqual(expected_value, p1);
+			Assert::AreEqual(8, p1);
 			int64_t p2 = d.p2();
 			// Assert::AreEqual(expected_value, p2);
 		}

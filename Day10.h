@@ -23,8 +23,7 @@ namespace Day10 {
 		};
 
 		int p1() {
-			// TODO: Implement part 1 solution
-			return 0;
+			return findFarthestDistance();
 		}
 
 		int64_t p2() {
@@ -60,6 +59,29 @@ namespace Day10 {
 			return make_pair(height, width);
 		}
 
+		// Debug method to show valid start directions
+		void debugStartConnections() const {
+			auto dirs = getValidStartDirections();
+			cout << "Checking connections from start (" << startPos.first << ", " << startPos.second << "):" << endl;
+			
+			string dirNames[] = {"North", "East", "South", "West"};
+			for (int dir = 0; dir < 4; ++dir) {
+				auto nextPos = getNextPosition(startPos.first, startPos.second, dir);
+				PipeType nextPipe = getPipeAt(nextPos.first, nextPos.second);
+				int oppositeDir = getOppositeDirection(dir);
+				bool connects = connectsInDirection(nextPipe, oppositeDir);
+				
+				cout << "  " << dirNames[dir] << " -> (" << nextPos.first << ", " << nextPos.second 
+				     << ") has '" << pipeToChar(nextPipe) << "' connects back: " << connects << endl;
+			}
+			
+			cout << "Valid start directions: ";
+			for (int dir : dirs) {
+				cout << dirNames[dir] << " ";
+			}
+			cout << endl;
+		}
+
 		// Check if a pipe connects in a given direction
 		// Directions: 0=North, 1=East, 2=South, 3=West
 		bool connectsInDirection(PipeType pipe, int direction) const {
@@ -83,6 +105,86 @@ namespace Day10 {
 			default:
 				return false;
 			}
+		}
+
+		// Get the next position when moving in a direction
+		pair<int, int> getNextPosition(int row, int col, int direction) const {
+			switch (direction) {
+			case 0: return make_pair(row - 1, col); // North
+			case 1: return make_pair(row, col + 1); // East
+			case 2: return make_pair(row + 1, col); // South
+			case 3: return make_pair(row, col - 1); // West
+			default: return make_pair(row, col);
+			}
+		}
+
+		// Get the opposite direction
+		int getOppositeDirection(int direction) const {
+			return (direction + 2) % 4;
+		}
+
+		// Find valid directions from the starting position
+		vector<int> getValidStartDirections() const {
+			vector<int> validDirs;
+			int startRow = startPos.first;
+			int startCol = startPos.second;
+
+			// Check each direction
+			for (int dir = 0; dir < 4; ++dir) {
+				auto nextPos = getNextPosition(startRow, startCol, dir);
+				PipeType nextPipe = getPipeAt(nextPos.first, nextPos.second);
+				
+				// Check if the adjacent pipe connects back to us
+				int oppositeDir = getOppositeDirection(dir);
+				if (connectsInDirection(nextPipe, oppositeDir)) {
+					validDirs.push_back(dir);
+				}
+			}
+			return validDirs;
+		}
+
+		// Find the farthest distance in the loop
+		int findFarthestDistance() const {
+			vector<int> startDirs = getValidStartDirections();
+			if (startDirs.size() != 2) {
+				return 0; // Should have exactly 2 connections for a valid loop
+			}
+
+			// Follow the loop in one direction and count steps
+			int currentRow = startPos.first;
+			int currentCol = startPos.second;
+			int currentDir = startDirs[0];
+			int steps = 0;
+
+			// Follow the loop until we return to start
+			do {
+				// Move to next position
+				auto nextPos = getNextPosition(currentRow, currentCol, currentDir);
+				currentRow = nextPos.first;
+				currentCol = nextPos.second;
+				steps++;
+
+				// If we're back at start, we've completed the loop
+				if (currentRow == startPos.first && currentCol == startPos.second) {
+					break;
+				}
+
+				// Find the next direction (the pipe has two connections, go the opposite way from where we came)
+				PipeType currentPipe = getPipeAt(currentRow, currentCol);
+				int oppositeOfCurrent = getOppositeDirection(currentDir);
+				
+				// Find the other direction this pipe connects to
+				for (int newDir = 0; newDir < 4; ++newDir) {
+					if (newDir != oppositeOfCurrent && connectsInDirection(currentPipe, newDir)) {
+						currentDir = newDir;
+						break;
+					}
+				}
+
+			} while (steps < 10000); // Safety limit
+
+			// The farthest point is half the loop length
+			return steps / 2;
 		}
 
 	private:
