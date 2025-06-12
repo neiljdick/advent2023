@@ -22,7 +22,7 @@ namespace Day8 {
 			}
 
 		};
-		bool check(const vector<map<string, pair<string, string>>::iterator> &ghosts) {
+		bool check(const vector<unordered_map<string, pair<string, string>>::iterator> &ghosts) {
 			bool done = true;
 			for (auto const& c : ghosts) {
 				if (c->first[2] != 'Z') {
@@ -37,7 +37,7 @@ namespace Day8 {
 			for (auto const& p : desert) {
 				if (p.first[2] == 'A') starts.push_back(p.first);
 			}
-			vector<map<string, pair<string, string>>::iterator> ghosts;
+			vector<unordered_map<string, pair<string, string>>::iterator> ghosts;
 			for (auto const& p : starts) {
 				ghosts.push_back(desert.find(p));
 			}
@@ -67,7 +67,7 @@ namespace Day8 {
 		}
 	private:
 		string instructions;
-		map<string, pair<string, string>> desert;
+		unordered_map<string, pair<string, string>> desert;
 		advent adv;
 	};
 }
