@@ -1,1 +1,6 @@
-TODO: Add test input for Day 10
+.....L7
+.F--J.|
+.S--7.|
+.|..|.|
+.L--J.|
+.......
