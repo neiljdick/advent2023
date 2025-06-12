@@ -1,6 +1,7 @@
 #pragma once
 
 #include "advent.hpp"
+#include <stdexcept>
 
 namespace Day10 {
 
@@ -146,8 +147,14 @@ namespace Day10 {
 		// Find the farthest distance in the loop
 		int findFarthestDistance() const {
 			vector<int> startDirs = getValidStartDirections();
-			if (startDirs.size() != 2) {
-				return 0; // Should have exactly 2 connections for a valid loop
+			if (startDirs.size() == 0) {
+				throw runtime_error("No valid connections found from starting position. Check input data.");
+			}
+			if (startDirs.size() == 1) {
+				throw runtime_error("Only one connection found from starting position. A valid loop requires exactly 2 connections.");
+			}
+			if (startDirs.size() > 2) {
+				throw runtime_error("More than 2 connections found from starting position. This creates an ambiguous path.");
 			}
 
 			// Follow the loop in one direction and count steps
@@ -181,7 +188,16 @@ namespace Day10 {
 					}
 				}
 
-			} while (steps < 10000); // Safety limit
+			} while (steps < 1000000); // Safety limit for very large inputs
+
+			// Check if we hit the safety limit without completing the loop
+			if (steps >= 1000000) {
+				ostringstream errorMsg;
+				errorMsg << "Safety limit reached: loop traversal exceeded 1,000,000 steps. "
+				         << "Current position: (" << currentRow << ", " << currentCol << "). "
+				         << "This suggests an infinite loop or corrupted input data.";
+				throw runtime_error(errorMsg.str());
+			}
 
 			// The farthest point is half the loop length
 			return steps / 2;
